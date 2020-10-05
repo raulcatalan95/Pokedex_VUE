@@ -51,6 +51,8 @@ export default new Vuex.Store({
                 id: data.data.id,
                 nombre: data.data.name,
                 tipos: data.data.types,
+                imgback:data.data.sprites.back_default,
+                imgfront:data.data.sprites.front_default,
               });
             });
           });
@@ -84,6 +86,8 @@ export default new Vuex.Store({
                 id: data.data.id,
                 nombre: data.data.name,
                 tipos: data.data.types,
+                imgback:data.data.sprites.back_default,
+                imgfront:data.data.sprites.front_default,
               });
             });
           });
@@ -117,6 +121,8 @@ export default new Vuex.Store({
                 id: data.data.id,
                 nombre: data.data.name,
                 tipos: data.data.types,
+                imgback:data.data.sprites.back_default,
+                imgfront:data.data.sprites.front_default,
               });
             });
           });

@@ -21,7 +21,11 @@
              <div>
                <h5>Habilidades</h5>
                <ul><li v-for="(ability,index) in habilidad" :key="index">{{ability.ability.name}}</li></ul>
-             </div>
+              
+               <img :src="srcback" alt="">
+               <img :src="srcfront" alt="">
+               </div>
+             
            
            
  
@@ -39,7 +43,9 @@ export default {
     ColorCard: String,
     tipo: String,
     indice:Number,
-    habilidad:Array
+    habilidad:Array,
+    srcback:String,
+    srcfront:String,
   },
   data() {
     return {

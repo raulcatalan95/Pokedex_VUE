@@ -2,10 +2,16 @@
   <div class="inicio">
     <div class="buscador" id="arriba">
       <div class="botonLeft">
-      <button v-if="oneCard"  @click="mostrartodopokes()" class="btn ml-4 mt-3 botonmostrarTodos"> Mostrar Todos Los Pokemones </button>
+        <button
+          v-if="oneCard"
+          @click="mostrartodopokes()"
+          class="btn ml-4 mt-3 botonmostrarTodos"
+        >
+          Mostrar Todos Los Pokemones
+        </button>
       </div>
       <div class="searchSpan mr-4">
-        <span class="spanbuscador mr-4" 
+        <span class="spanbuscador mr-4"
           >Encuentra tu Pokemon Por Nombre o N°</span
         >
         <el-input
@@ -24,7 +30,7 @@
       </div>
     </div>
     <header class="header"></header>
-    <div class="separador" >
+    <div class="separador">
       <div class="pokeLeft">
         <img src="img\charmander.svg" alt="" class="imgSeprador mx-5" />
         <img src="img\squirtle.svg" alt="" class="imgSeprador mx-5" />
@@ -39,39 +45,56 @@
         <img src="img\charmander.svg" alt="" class="imgSeprador mx-5" />
       </div>
     </div>
-    <div class="oneCard"
-    v-if="oneCard">
-
-    
-       <Card
+    <div class="oneCard" v-if="oneCard">
+      <Card
         v-for="(poke, i) in pokemonBuscado"
         :key="i"
         :nombre="poke.nombre"
         :habilidad="poke.habilidad"
         :id="poke.id"
+        :srcback="poke.imgback"
+        :srcfront="poke.imgfront"
         :ColorCard="colorCard(poke.tipos[0].type.name)"
         :tipo="poke.tipos[0].type.name"
       />
     </div>
-    <div class="allCards pb-5"
+    <div
+      class="allCards pb-5"
       v-loading="loading"
-    element-loading-text="Loading..."
-    element-loading-spinner="el-icon-loading"
-    element-loading-background="rgba(0, 0, 0, 0.8)"
-    v-else>
+      element-loading-text="Loading..."
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+      v-else
+    >
       <Card
         v-for="(poke, i) in TodoPokemones"
         :key="i"
         :nombre="poke.nombre"
         :habilidad="poke.habilidad"
         :id="poke.id"
+        :srcback="poke.imgback"
+        :srcfront="poke.imgfront"
         :ColorCard="colorCard(poke.tipos[0].type.name)"
         :tipo="poke.tipos[0].type.name"
       />
       <div class="botones_next mt-5">
-     <a href="#arriba"> <button class="btn btn-primary " :disabled="nPages==1" @click="previousPage()"> Previus Page {{nPages -1}} </button></a>
-      <div class="paginaActual"><p>{{nPages}}</p></div>
-     <a href="#arriba"> <button class="btn btn-primary " @click="nextPage()">  Next Page {{nPages +1}} </button></a>
+        <a href="#">
+          <button
+            class="btn btn-primary "
+            :disabled="nPages == 1"
+            @click="previousPage()"
+          >
+            Previus Page {{ nPages - 1 }}
+          </button></a
+        >
+        <div class="paginaActual">
+          <p>{{ nPages }}</p>
+        </div>
+        <a href="#">
+          <button class="btn btn-primary " @click="nextPage()">
+            Next Page {{ nPages + 1 }}
+          </button></a
+        >
       </div>
     </div>
   </div>
@@ -109,29 +132,29 @@ export default {
       },
       input: "",
       pokemonBuscado: [],
-      oneCard:false,
-       nPages:1,
-       loading:false,
+      oneCard: false,
+      nPages: 1,
+      loading: false,
     };
   },
   computed: {
     ...mapState(["TodoPokemones"]),
-   
   },
   methods: {
-    ...mapActions(["seturlPokemones","setTodoPokesNext","setTodoPokesPrevious"]),
+    ...mapActions([
+      "seturlPokemones",
+      "setTodoPokesNext",
+      "setTodoPokesPrevious",
+    ]),
 
-    nextPage(){
+    nextPage() {
       this.setTodoPokesNext();
-      this.nPages++
-      
-      
+      this.nPages++;
     },
-    previousPage(){
-     this.setTodoPokesPrevious();
-     this.nPages--
+    previousPage() {
+      this.setTodoPokesPrevious();
+      this.nPages--;
     },
-     
 
     colorCard(tipo) {
       return tipo == "grass"
@@ -168,38 +191,40 @@ export default {
     },
 
     buscar() {
-     
-      this.pokemonBuscado=[];
-      axios
-        .get(`https://pokeapi.co/api/v2/pokemon/${this.input}`)
-        .then((data) => {
-          console.log(data.data);
-          this.pokemonBuscado.push({
-            habilidad: data.data.abilities,
-            id: data.data.id,
-            nombre: data.data.name,
-            tipos: data.data.types,
+      this.pokemonBuscado = [];
+      if (this.input != "") {
+        axios
+          .get(`https://pokeapi.co/api/v2/pokemon/${this.input}`)
+          .then((data) => {
+            console.log(data.data);
+            this.pokemonBuscado.push({
+              habilidad: data.data.abilities,
+              id: data.data.id,
+              nombre: data.data.name,
+              tipos: data.data.types,
+            });
+            this.input = "";
+            this.oneCard = true;
+          })
+          .catch((res) => {
+            alert("El Pokemon Que Buscaste No Existe");
           });
-          this.input=""
-           this.oneCard= true;
-        }).catch(res=>{
-             alert("el pokemon no existe")
-        });
+      }else{
+        alert("Escribe Un Nombre o N° del Pokemon")
+      }
     },
-    mostrartodopokes(){
- this.oneCard= false 
-    }
+    mostrartodopokes() {
+      this.oneCard = false;
+    },
   },
   created() {
     this.seturlPokemones();
-   
   },
-  
 };
 </script>
 <style lang="scss">
-.oneCard{
-   display: flex;
+.oneCard {
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   background-image: url("/img/fondo_poke.jpg");
@@ -273,31 +298,28 @@ input {
   display: flex;
   flex-direction: column;
   width: 50%;
-  
+
   align-items: flex-end;
 }
 .spanbuscador {
   color: yellow;
   font-family: sans-serif;
 }
-.botonmostrarTodos{
-  color:#fff !important;
+.botonmostrarTodos {
+  color: #fff !important;
   background-color: #909020 !important;
-  
 }
-.botonLeft{
-width: 50%;
-display: flex;
-justify-content: flex-start;
+.botonLeft {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
 }
-.botones_next{
-width: 100%;
-display: flex;
-justify-content: center;
-
-
+.botones_next {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
-.paginaActual{
+.paginaActual {
   background-color: #909020;
   border: 1px solid #909020;
   color: #fff;
@@ -305,11 +327,10 @@ justify-content: center;
   height: 38px;
   margin-top: auto;
 }
-.paginaActual p{
-  
+.paginaActual p {
   font-size: 1.7rem;
 }
-.botones_next .btn{
+.botones_next .btn {
   border-radius: 0px !important;
 }
 </style>

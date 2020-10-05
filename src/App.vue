@@ -27,16 +27,23 @@
   }
 }
 .el-dialog__body{
-  background-image: url("/img/fondo_dialog.jpg");
+ background-color: #e74949;
   background-repeat: no-repeat;
-  background-size: cover;
-  height: 600px;
+  background-size:unset;
+  height: 500px;
   color: #fff !important;
+ 
 }
 .el-dialog__header .el-dialog__title{
   text-shadow: gray 2px 2px 2px; 
   font-weight: 900;
   font-size: 2rem;
-   font-family: 'Noto Sans', sans-serif;
+  font-family: 'Noto Sans', sans-serif;
+  color: #fff;
+  
 }
+.el-dialog__header{
+  background-color: #e74949;
+}
+
 </style>
