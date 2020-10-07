@@ -31,6 +31,7 @@
     </div>
     <header class="header"></header>
     <div class="separador">
+      <div class="iconosPokes1"> 
       <div class="pokeLeft">
         <img src="img\charmander.svg" alt="" class="imgSeprador mx-5" />
         <img src="img\squirtle.svg" alt="" class="imgSeprador mx-5" />
@@ -43,6 +44,22 @@
         <img src="img\bullbasaur.svg" alt="" class="imgSeprador mx-5" />
         <img src="img\squirtle.svg" alt="" class="imgSeprador mx-5" />
         <img src="img\charmander.svg" alt="" class="imgSeprador mx-5" />
+      </div>
+      </div>
+         <div class="iconosPokes2"> 
+      <div class="pokeLeft">
+        <img src="img\charmander.svg" alt="" class="imgSeprador mx-5" />
+        <img src="img\squirtle.svg" alt="" class="imgSeprador mx-5" />
+        <img src="img\bullbasaur.svg" alt="" class="imgSeprador mx-5" />
+        <img src="img\pikachu.svg" alt="" class="imgSeprador mx-5" />
+      </div>
+      <h1>POKEDEX</h1>
+      <div class="pokeRight">
+        <img src="img\pikachu.svg" alt="" class="imgSeprador mx-5" />
+        <img src="img\bullbasaur.svg" alt="" class="imgSeprador mx-5" />
+        <img src="img\squirtle.svg" alt="" class="imgSeprador mx-5" />
+        <img src="img\charmander.svg" alt="" class="imgSeprador mx-5" />
+      </div>
       </div>
     </div>
     <div class="oneCard" v-if="oneCard">
@@ -262,6 +279,39 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+
+}
+.iconosPokes1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  position: absolute;
+  animation: animacion 10s linear infinite;
+  
+ 
+}
+.iconosPokes2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  position: absolute;
+  opacity: 0;
+  animation: animacion2 10s linear infinite ;
+}
+
+@keyframes animacion{
+  0%{left:0%;}
+  50%{left:50%;}
+  100%{left:100%}
+}
+@keyframes animacion2{
+  0%{left:-100%; opacity: 1;}
+  50%{left:-50%; opacity: 1;}
+  100%{left:0%; opacity: 1;}
 }
 .separador h1 {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -333,4 +383,5 @@ input {
 .botones_next .btn {
   border-radius: 0px !important;
 }
+
 </style>
